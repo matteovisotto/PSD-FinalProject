@@ -351,7 +351,7 @@
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="Application Cooperation" id="id-41f4e9111758424384bca2b086e4216c" viewpoint="application_cooperation">
       <child xsi:type="archimate:Group" id="id-22f003f5be004a34b2d5e7176ebc5c0b" name="IC IT system" textAlignment="1">
-        <bounds x="-144" y="48" width="1501" height="745"/>
+        <bounds x="204" y="84" width="1501" height="745"/>
         <child xsi:type="archimate:DiagramObject" id="id-40bac861d352489599e9fdb1ed2242b7" archimateElement="id-2e7fd9df32d144bbb62e9230f9192b0f">
           <bounds x="288" y="600" width="97" height="85"/>
         </child>
