@@ -1,0 +1,17 @@
+{
+  "name": "mangia-tranquillo-worker",
+  "version": "1.0.0",
+  "description": "Mangia tranquillo Camunda worker",
+  "main": "worker.js",
+  "scripts": {
+    "start": "node worker.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Matteo Visotto - Daniele Sinigaglia - Alessandro Cecchetto",
+  "license": "ISC",
+  "dependencies": {
+    "camunda-external-task-client-js": "^2.2.0",
+    "node-rest-client": "^3.1.1"
+  }
+}
