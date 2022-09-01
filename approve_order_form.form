@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Choosen Menu",
+      "type": "textfield",
+      "id": "Field_021niy5",
+      "key": "filtered_menu"
+    },
+    {
+      "label": "Approve",
+      "type": "checkbox",
+      "id": "Field_1h4obg2",
+      "key": "orderVerified"
+    },
+    {
+      "action": "submit",
+      "label": "Submit",
+      "type": "button",
+      "id": "Field_07d8tpg",
+      "key": "field_1snzyxb"
+    }
+  ],
+  "type": "default",
+  "id": "approve_order_form"
+}
