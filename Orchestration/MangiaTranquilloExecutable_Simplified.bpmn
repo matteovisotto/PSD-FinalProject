@@ -4,9 +4,8 @@
     <bpmn:participant id="Participant_0czvaj1" name="Hospital Patient" processRef="Process_1xrjeni" />
     <bpmn:participant id="Participant_0xoy8ft" name="MangiaTranquillo" processRef="mangia-tranquillo" />
     <bpmn:participant id="Participant_0krr8c4" name="SSN" processRef="Process_0v4wydq" />
-    <bpmn:messageFlow id="Flow_1wt1ajg" sourceRef="Participant_0czvaj1" targetRef="Event_1dbi9ox" />
-    <bpmn:messageFlow id="Flow_09vpiya" sourceRef="Event_053xy3s" targetRef="Participant_0czvaj1" />
-    <bpmn:messageFlow id="Flow_1g1k58j" sourceRef="Participant_0czvaj1" targetRef="Event_1wqnaio" />
+    <bpmn:messageFlow id="Flow_1wt1ajg" sourceRef="Participant_0czvaj1" targetRef="getCFandHID" />
+    <bpmn:messageFlow id="Flow_09vpiya" sourceRef="sendFilteredMenu" targetRef="Participant_0czvaj1" />
     <bpmn:messageFlow id="Flow_1y5c6vq" sourceRef="sendErrorActivity" targetRef="Participant_0czvaj1" />
     <bpmn:messageFlow id="Flow_0ntk74t" sourceRef="Event_1v7lsuh" targetRef="Participant_0czvaj1" />
     <bpmn:messageFlow id="Flow_0dlr12l" sourceRef="sendConfirmationActivity" targetRef="Participant_0czvaj1" />
@@ -14,35 +13,22 @@
     <bpmn:messageFlow id="Flow_1ag0fff" sourceRef="filterMenuActivity" targetRef="Participant_0krr8c4" />
     <bpmn:messageFlow id="Flow_1fimc9s" sourceRef="Participant_0krr8c4" targetRef="verifyCFActivity" />
     <bpmn:messageFlow id="Flow_0rs11yk" sourceRef="Participant_0krr8c4" targetRef="filterMenuActivity" />
+    <bpmn:messageFlow id="Flow_0ttcep2" sourceRef="expired_session_message" targetRef="Participant_0czvaj1" />
+    <bpmn:messageFlow id="Flow_1g1k58j" sourceRef="Participant_0czvaj1" targetRef="getPatientOrder" />
   </bpmn:collaboration>
   <bpmn:process id="Process_1xrjeni" isExecutable="false">
     <bpmn:laneSet id="LaneSet_0rrlb60" />
   </bpmn:process>
   <bpmn:process id="mangia-tranquillo" isExecutable="true">
-    <bpmn:intermediateCatchEvent id="Event_1wqnaio">
-      <bpmn:incoming>Flow_00l8o76</bpmn:incoming>
-      <bpmn:outgoing>Flow_1wh2i8i</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_17yrogr" messageRef="Message_16wado9" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:endEvent id="Event_1xbvvq8">
-      <bpmn:incoming>Flow_1aedom0</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:intermediateCatchEvent id="Event_12dyxim">
-      <bpmn:incoming>Flow_0ae1dbz</bpmn:incoming>
-      <bpmn:outgoing>Flow_1aedom0</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_1wki9yh">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">9</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="Gateway_18stc4a">
       <bpmn:incoming>Flow_1msjx15</bpmn:incoming>
       <bpmn:outgoing>Flow_0fq9ocj</bpmn:outgoing>
       <bpmn:outgoing>Flow_1b21cop</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:intermediateThrowEvent id="Event_1v7lsuh">
+    <bpmn:intermediateThrowEvent id="Event_1v7lsuh" name="Invalid order">
       <bpmn:incoming>Flow_1b21cop</bpmn:incoming>
       <bpmn:outgoing>Flow_05j7vlb</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0ggm444" messageRef="Message_0yij8wn" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0ggm444" messageRef="Message_0yij8wn" camunda:type="external" camunda:topic="invalid-order-send" />
     </bpmn:intermediateThrowEvent>
     <bpmn:scriptTask id="saveOrderActivity" name="Save order">
       <bpmn:incoming>Flow_0fq9ocj</bpmn:incoming>
@@ -72,16 +58,15 @@
       <bpmn:incoming>Flow_05j7vlb</bpmn:incoming>
       <bpmn:outgoing>Flow_1m4w82j</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:intermediateThrowEvent id="Event_053xy3s">
+    <bpmn:intermediateThrowEvent id="sendFilteredMenu" name="Filtered menu">
       <bpmn:incoming>Flow_1hiclgz</bpmn:incoming>
       <bpmn:outgoing>Flow_1ulcp72</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1b1ngs1" messageRef="Message_16wado9" camunda:type="external" camunda:topic="filtered-menu" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1b1ngs1" messageRef="Message_16wado9" camunda:type="external" camunda:topic="filtered-menu-send" />
     </bpmn:intermediateThrowEvent>
-    <bpmn:startEvent id="Event_1dbi9ox">
+    <bpmn:startEvent id="getCFandHID">
       <bpmn:outgoing>Flow_088iqoi</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1hn6ab6" messageRef="Message_0228bix" />
     </bpmn:startEvent>
-    <bpmn:dataStoreReference id="DataStoreReference_13pppir" />
     <bpmn:endEvent id="Event_0paoenn">
       <bpmn:incoming>Flow_1co3929</bpmn:incoming>
     </bpmn:endEvent>
@@ -91,55 +76,24 @@
       <bpmn:incoming>Flow_1gabxhz</bpmn:incoming>
       <bpmn:outgoing>Flow_0bogb2n</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="verifyCFActivity" name="Verify patient CF correctness" camunda:type="external" camunda:topic="verify-cf">
-      <bpmn:incoming>Flow_11rn39z</bpmn:incoming>
-      <bpmn:outgoing>Flow_09iyrts</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="filterMenuActivity" name="Filter for current patient" camunda:type="external" camunda:topic="filter-by-pid">
-      <bpmn:incoming>Flow_09iyrts</bpmn:incoming>
-      <bpmn:outgoing>Flow_1hiclgz</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="getMenuActivity" name="Get available menu" camunda:type="external" camunda:topic="get-menu">
-      <bpmn:incoming>Flow_088iqoi</bpmn:incoming>
-      <bpmn:outgoing>Flow_11rn39z</bpmn:outgoing>
-      <bpmn:property id="Property_15bjklt" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_1a6ehal">
-        <bpmn:sourceRef>DataStoreReference_13pppir</bpmn:sourceRef>
-        <bpmn:targetRef>Property_15bjklt</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:boundaryEvent id="Event_16gwv0r" name="Invalid patient" attachedToRef="verifyCFActivity">
-      <bpmn:outgoing>Flow_11t94nd</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_0wmka5y" errorRef="Error_002s0lk" />
-    </bpmn:boundaryEvent>
-    <bpmn:boundaryEvent id="Event_0rwz566" name="SSN Error" attachedToRef="verifyCFActivity">
-      <bpmn:outgoing>Flow_098z1d9</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_0w0y7q6" errorRef="Error_1elkvhx" />
-    </bpmn:boundaryEvent>
-    <bpmn:boundaryEvent id="Event_0zdk3m1" attachedToRef="filterMenuActivity">
-      <bpmn:outgoing>Flow_1gabxhz</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_04s4fkt" />
-    </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="Flow_11rn39z" sourceRef="getMenuActivity" targetRef="verifyCFActivity" />
-    <bpmn:sequenceFlow id="Flow_088iqoi" sourceRef="Event_1dbi9ox" targetRef="getMenuActivity" />
-    <bpmn:sequenceFlow id="Flow_1hiclgz" sourceRef="filterMenuActivity" targetRef="Event_053xy3s" />
-    <bpmn:sequenceFlow id="Flow_0ae1dbz" name="9 minutes passed" sourceRef="Gateway_0k47vfr" targetRef="Event_12dyxim" />
-    <bpmn:sequenceFlow id="Flow_00l8o76" name="Receive an order" sourceRef="Gateway_0k47vfr" targetRef="Event_1wqnaio" />
+    <bpmn:sequenceFlow id="Flow_11rn39z" sourceRef="verifyCFActivity" targetRef="getMenuActivity" />
+    <bpmn:sequenceFlow id="Flow_088iqoi" sourceRef="getCFandHID" targetRef="verifyCFActivity" />
+    <bpmn:sequenceFlow id="Flow_1hiclgz" sourceRef="filterMenuActivity" targetRef="sendFilteredMenu" />
+    <bpmn:sequenceFlow id="Flow_0ae1dbz" name="9 minutes passed" sourceRef="Gateway_0k47vfr" targetRef="expireSession" />
     <bpmn:sequenceFlow id="Flow_196ki85" sourceRef="sendConfirmationActivity" targetRef="Event_18o527l" />
     <bpmn:sequenceFlow id="Flow_1djjcue" sourceRef="saveOrderActivity" targetRef="sendConfirmationActivity" />
-    <bpmn:sequenceFlow id="Flow_1wh2i8i" sourceRef="Event_1wqnaio" targetRef="verifyOrderActivity" />
     <bpmn:sequenceFlow id="Flow_1msjx15" sourceRef="verifyOrderActivity" targetRef="Gateway_18stc4a" />
-    <bpmn:sequenceFlow id="Flow_1aedom0" sourceRef="Event_12dyxim" targetRef="Event_1xbvvq8" />
+    <bpmn:sequenceFlow id="Flow_1aedom0" sourceRef="expireSession" targetRef="expired_session_message" />
     <bpmn:sequenceFlow id="Flow_0fq9ocj" name="Valid order" sourceRef="Gateway_18stc4a" targetRef="saveOrderActivity">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">orderVerified=true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${orderVerified}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1b21cop" name="Invalid order" sourceRef="Gateway_18stc4a" targetRef="Event_1v7lsuh">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">orderVerified=false</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!orderVerified}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1ulcp72" sourceRef="Event_053xy3s" targetRef="Gateway_00oih19" />
+    <bpmn:sequenceFlow id="Flow_1ulcp72" sourceRef="sendFilteredMenu" targetRef="Gateway_00oih19" />
     <bpmn:sequenceFlow id="Flow_1m4w82j" sourceRef="Gateway_00oih19" targetRef="Gateway_0k47vfr" />
     <bpmn:sequenceFlow id="Flow_05j7vlb" sourceRef="Event_1v7lsuh" targetRef="Gateway_00oih19" />
-    <bpmn:sequenceFlow id="Flow_09iyrts" sourceRef="verifyCFActivity" targetRef="filterMenuActivity" />
+    <bpmn:sequenceFlow id="Flow_09iyrts" sourceRef="getMenuActivity" targetRef="filterMenuActivity" />
     <bpmn:sequenceFlow id="Flow_098z1d9" sourceRef="Event_0rwz566" targetRef="Gateway_1jiorys" />
     <bpmn:sequenceFlow id="Flow_1co3929" sourceRef="sendErrorActivity" targetRef="Event_0paoenn" />
     <bpmn:sequenceFlow id="Flow_0bogb2n" sourceRef="Gateway_1jiorys" targetRef="sendErrorActivity" />
@@ -153,13 +107,62 @@
       <bpmn:incoming>Flow_1wh2i8i</bpmn:incoming>
       <bpmn:outgoing>Flow_1msjx15</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:serviceTask id="getMenuActivity" name="Get available menu" camunda:type="external" camunda:topic="get-menu">
+      <bpmn:incoming>Flow_11rn39z</bpmn:incoming>
+      <bpmn:outgoing>Flow_09iyrts</bpmn:outgoing>
+      <bpmn:property id="Property_15bjklt" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1a6ehal">
+        <bpmn:sourceRef>DataStoreReference_13pppir</bpmn:sourceRef>
+        <bpmn:targetRef>Property_15bjklt</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="verifyCFActivity" name="Verify patient CF correctness" camunda:type="external" camunda:topic="verify-cf">
+      <bpmn:incoming>Flow_088iqoi</bpmn:incoming>
+      <bpmn:outgoing>Flow_11rn39z</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_0rwz566" name="SSN Error" attachedToRef="verifyCFActivity">
+      <bpmn:outgoing>Flow_098z1d9</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0w0y7q6" errorRef="Error_1elkvhx" />
+    </bpmn:boundaryEvent>
+    <bpmn:boundaryEvent id="Event_16gwv0r" name="Invalid patient" attachedToRef="verifyCFActivity">
+      <bpmn:outgoing>Flow_11t94nd</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0wmka5y" errorRef="Error_002s0lk" />
+    </bpmn:boundaryEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_13pppir" />
+    <bpmn:serviceTask id="filterMenuActivity" name="Filter for current patient" camunda:type="external" camunda:topic="filter-by-pid">
+      <bpmn:incoming>Flow_09iyrts</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hiclgz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_0zdk3m1" attachedToRef="filterMenuActivity">
+      <bpmn:outgoing>Flow_1gabxhz</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_04s4fkt" />
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="expired_session_message" name="Expired session">
+      <bpmn:incoming>Flow_1aedom0</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1s6y8wp" />
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="expireSession">
+      <bpmn:incoming>Flow_0ae1dbz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1aedom0</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1wki9yh">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="getPatientOrder" name="Get Patient Order&#10;&#10;">
+      <bpmn:incoming>Flow_00l8o76</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wh2i8i</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_17yrogr" messageRef="Message_05d8ho0" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1wh2i8i" sourceRef="getPatientOrder" targetRef="verifyOrderActivity" />
+    <bpmn:sequenceFlow id="Flow_00l8o76" name="Receive an order" sourceRef="Gateway_0k47vfr" targetRef="getPatientOrder" />
   </bpmn:process>
   <bpmn:error id="Error_1elkvhx" errorCode="400" />
   <bpmn:message id="Message_0228bix" name="getCFandHID" />
   <bpmn:error id="Error_002s0lk" name="404" errorCode="404" />
   <bpmn:process id="Process_0v4wydq" isExecutable="false" />
-  <bpmn:message id="Message_16wado9" name="filteredMenu" />
+  <bpmn:message id="Message_16wado9" name="sendFilteredMenu" />
   <bpmn:message id="Message_0yij8wn" name="invalidOrder" />
+  <bpmn:message id="Message_05d8ho0" name="getPatientOrder" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="mangia-tranquillo-bpmn">
       <bpmndi:BPMNShape id="Participant_0czvaj1_di" bpmnElement="Participant_0czvaj1" isHorizontal="true">
@@ -169,14 +172,14 @@
         <dc:Bounds x="160" y="230" width="1860" height="520" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1gabxhz_di" bpmnElement="Flow_1gabxhz">
-        <di:waypoint x="750" y="448" />
-        <di:waypoint x="750" y="610" />
+        <di:waypoint x="720" y="448" />
+        <di:waypoint x="720" y="610" />
         <di:waypoint x="675" y="610" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11t94nd_di" bpmnElement="Flow_11t94nd">
-        <di:waypoint x="610" y="448" />
-        <di:waypoint x="610" y="520" />
-        <di:waypoint x="650" y="520" />
+        <di:waypoint x="450" y="448" />
+        <di:waypoint x="450" y="550" />
+        <di:waypoint x="650" y="550" />
         <di:waypoint x="650" y="585" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0bogb2n_di" bpmnElement="Flow_0bogb2n">
@@ -189,16 +192,16 @@
         <di:waypoint x="962" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_098z1d9_di" bpmnElement="Flow_098z1d9">
-        <di:waypoint x="550" y="448" />
-        <di:waypoint x="550" y="610" />
+        <di:waypoint x="390" y="448" />
+        <di:waypoint x="390" y="610" />
         <di:waypoint x="625" y="610" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="559" y="751" width="82" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_09iyrts_di" bpmnElement="Flow_09iyrts">
-        <di:waypoint x="630" y="390" />
-        <di:waypoint x="730" y="390" />
+        <di:waypoint x="620" y="390" />
+        <di:waypoint x="700" y="390" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_05j7vlb_di" bpmnElement="Flow_05j7vlb">
         <di:waypoint x="1490" y="488" />
@@ -229,8 +232,8 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1aedom0_di" bpmnElement="Flow_1aedom0">
-        <di:waypoint x="1258" y="480" />
-        <di:waypoint x="1292" y="480" />
+        <di:waypoint x="1248" y="480" />
+        <di:waypoint x="1302" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1msjx15_di" bpmnElement="Flow_1msjx15">
         <di:waypoint x="1420" y="310" />
@@ -259,13 +262,13 @@
       <bpmndi:BPMNEdge id="Flow_0ae1dbz_di" bpmnElement="Flow_0ae1dbz">
         <di:waypoint x="1110" y="415" />
         <di:waypoint x="1110" y="480" />
-        <di:waypoint x="1222" y="480" />
+        <di:waypoint x="1212" y="480" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1125" y="493" width="87" height="14" />
+          <dc:Bounds x="1119" y="493" width="87" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1hiclgz_di" bpmnElement="Flow_1hiclgz">
-        <di:waypoint x="830" y="390" />
+        <di:waypoint x="800" y="390" />
         <di:waypoint x="882" y="390" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_088iqoi_di" bpmnElement="Flow_088iqoi">
@@ -274,22 +277,22 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11rn39z_di" bpmnElement="Flow_11rn39z">
         <di:waypoint x="470" y="390" />
-        <di:waypoint x="530" y="390" />
+        <di:waypoint x="520" y="390" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_1wqnaio_di" bpmnElement="Event_1wqnaio">
+      <bpmndi:BPMNShape id="Event_1wqnaio_di" bpmnElement="getPatientOrder">
         <dc:Bounds x="1222" y="292" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1xbvvq8_di" bpmnElement="Event_1xbvvq8">
-        <dc:Bounds x="1292" y="462" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_12dyxim_di" bpmnElement="Event_12dyxim">
-        <dc:Bounds x="1222" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1186" y="335" width="87" height="40" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_18stc4a_di" bpmnElement="Gateway_18stc4a" isMarkerVisible="true">
         <dc:Bounds x="1465" y="285" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1cthqna_di" bpmnElement="Event_1v7lsuh">
         <dc:Bounds x="1472" y="452" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1533" y="460" width="61" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_066foxz_di" bpmnElement="saveOrderActivity">
         <dc:Bounds x="1620" y="270" width="100" height="80" />
@@ -310,29 +313,20 @@
       <bpmndi:BPMNShape id="Gateway_00oih19_di" bpmnElement="Gateway_00oih19" isMarkerVisible="true">
         <dc:Bounds x="985" y="365" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0d8ln6n_di" bpmnElement="Event_053xy3s">
+      <bpmndi:BPMNShape id="Event_0d8ln6n_di" bpmnElement="sendFilteredMenu">
         <dc:Bounds x="882" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="866" y="415" width="68" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0hxmiw8_di" bpmnElement="Event_1dbi9ox">
+      <bpmndi:BPMNShape id="Event_0hxmiw8_di" bpmnElement="getCFandHID">
         <dc:Bounds x="272" y="372" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_0ozekpc_di" bpmnElement="DataStoreReference_13pppir">
-        <dc:Bounds x="395" y="465" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0paoenn_di" bpmnElement="Event_0paoenn">
         <dc:Bounds x="962" y="642" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1jiorys_di" bpmnElement="Gateway_1jiorys" isMarkerVisible="true">
         <dc:Bounds x="625" y="585" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_19nhbnv_di" bpmnElement="verifyCFActivity">
-        <dc:Bounds x="530" y="350" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1oii0b6_di" bpmnElement="filterMenuActivity">
-        <dc:Bounds x="730" y="350" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_07h03ql_di" bpmnElement="getMenuActivity">
-        <dc:Bounds x="370" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0kgxbtc_di" bpmnElement="sendErrorActivity">
         <dc:Bounds x="820" y="620" width="100" height="80" />
@@ -341,19 +335,40 @@
       <bpmndi:BPMNShape id="Activity_0azvj64_di" bpmnElement="verifyOrderActivity">
         <dc:Bounds x="1320" y="270" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0xeh5uj_di" bpmnElement="Event_0zdk3m1">
-        <dc:Bounds x="732" y="412" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_07h03ql_di" bpmnElement="getMenuActivity">
+        <dc:Bounds x="520" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1727tlk_di" bpmnElement="Event_0rwz566">
-        <dc:Bounds x="532" y="412" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_19nhbnv_di" bpmnElement="verifyCFActivity">
+        <dc:Bounds x="370" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0ozekpc_di" bpmnElement="DataStoreReference_13pppir">
+        <dc:Bounds x="545" y="455" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oii0b6_di" bpmnElement="filterMenuActivity">
+        <dc:Bounds x="700" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ew1zc0_di" bpmnElement="expired_session_message">
+        <dc:Bounds x="1302" y="462" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="494" y="453" width="51" height="14" />
+          <dc:Bounds x="1282" y="505" width="78" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12dyxim_di" bpmnElement="expireSession">
+        <dc:Bounds x="1212" y="462" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xeh5uj_di" bpmnElement="Event_0zdk3m1">
+        <dc:Bounds x="702" y="412" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0bc51po_di" bpmnElement="Event_16gwv0r">
-        <dc:Bounds x="592" y="412" width="36" height="36" />
+        <dc:Bounds x="432" y="412" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="616" y="453" width="68" height="14" />
+          <dc:Bounds x="456" y="453" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1727tlk_di" bpmnElement="Event_0rwz566">
+        <dc:Bounds x="372" y="412" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="334" y="453" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0krr8c4_di" bpmnElement="Participant_0krr8c4" isHorizontal="true">
@@ -364,8 +379,8 @@
         <di:waypoint x="1670" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1a6ehal_di" bpmnElement="DataInputAssociation_1a6ehal">
-        <di:waypoint x="420" y="465" />
-        <di:waypoint x="420" y="430" />
+        <di:waypoint x="570" y="455" />
+        <di:waypoint x="570" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1wt1ajg_di" bpmnElement="Flow_1wt1ajg">
         <di:waypoint x="290" y="160" />
@@ -393,20 +408,26 @@
         <di:waypoint x="1830" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1jd2ke0_di" bpmnElement="Flow_1jd2ke0">
-        <di:waypoint x="570" y="430" />
-        <di:waypoint x="570" y="800" />
+        <di:waypoint x="410" y="430" />
+        <di:waypoint x="410" y="800" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ag0fff_di" bpmnElement="Flow_1ag0fff">
-        <di:waypoint x="780" y="430" />
-        <di:waypoint x="780" y="800" />
+        <di:waypoint x="750" y="430" />
+        <di:waypoint x="750" y="800" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fimc9s_di" bpmnElement="Flow_1fimc9s">
-        <di:waypoint x="590" y="800" />
-        <di:waypoint x="590" y="430" />
+        <di:waypoint x="430" y="800" />
+        <di:waypoint x="430" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0rs11yk_di" bpmnElement="Flow_0rs11yk">
-        <di:waypoint x="800" y="796" />
-        <di:waypoint x="800" y="430" />
+        <di:waypoint x="770" y="800" />
+        <di:waypoint x="770" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ttcep2_di" bpmnElement="Flow_0ttcep2">
+        <di:waypoint x="1320" y="462" />
+        <di:waypoint x="1320" y="420" />
+        <di:waypoint x="1290" y="420" />
+        <di:waypoint x="1290" y="160" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

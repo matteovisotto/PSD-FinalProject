@@ -5,7 +5,10 @@
       "label": "Choosen Menu",
       "type": "textfield",
       "id": "Field_021niy5",
-      "key": "filtered_menu"
+      "key": "order",
+      "validate": {
+        "required": true
+      }
     },
     {
       "label": "Approve",
@@ -22,5 +25,7 @@
     }
   ],
   "type": "default",
-  "id": "approve_order_form"
+  "id": "approve_order_form",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.16"
 }

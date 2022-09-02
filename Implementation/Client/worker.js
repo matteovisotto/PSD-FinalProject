@@ -1,6 +1,6 @@
 const {Client, logger, Variables} = require("camunda-external-task-client-js");
 const config = { baseUrl: 'https://camunda.matmacsystem.it/engine-rest', use: logger, asyncResponseTimeout: 10000 };
-
+const mqtt = require('mqtt');
 // create a Client instance with custom configuration
 const client = new Client(config);
 
@@ -49,7 +49,7 @@ client.subscribe('verify-cf', async function({ task, taskService }) {
         data: { fiscal_code: cf, structure_id: hId },
         headers: { "Content-Type": "application/json" },
     };
-    restclient.post(
+    /*restclient.post(
         "http://localhost:9090/patient/verify",
         args,
         function (data, response) {
@@ -67,7 +67,9 @@ client.subscribe('verify-cf', async function({ task, taskService }) {
                 taskService.handleBpmnError(task, "400", "An error occurred");
             }
         }
-    );
+    );*/
+    processVariables.set("pid", 1)
+    taskService.complete(task, processVariables);
 });
 
 client.subscribe('filter-by-pid', async function({ task, taskService }) {
@@ -77,8 +79,8 @@ client.subscribe('filter-by-pid', async function({ task, taskService }) {
         headers: { "Content-Type": "application/json" },
     };
     const processVariables = new Variables();
-    var forbidden_food = []
-    restclient.get(
+    var forbidden_food = [];
+    /*restclient.get(
         "http://localhost:9090/patient/"+pid+"/diseases",
         args,
         function (data, response) {
@@ -108,6 +110,33 @@ client.subscribe('filter-by-pid', async function({ task, taskService }) {
                 taskService.handleBpmnError(task, "400", "Patient not found");
             }
         }
-    );
+    );*/
+    processVariables.set("filtered_menu", menu);
+    await taskService.complete(task, processVariables);
+});
+
+client.subscribe('filtered-menu-send', async function({ task, taskService }) {
+    const client = mqtt.connect('mqtt://server.matmacsystem.it:1883', {
+        clientId: '',
+        clean: true,
+        connectTimeout: 4000,
+        reconnectPeriod: 1000,
+    });
+    client.on('connect', () => {
+        client.publish('camunda/order/request', JSON.stringify(task.variables.get('filtered_menu')), { qos: 0, retain: false }, (error) => {
+            if (error) {
+                console.error(error)
+            }
+        });
+    });
+    await taskService.complete(task);
+});
+
+client.subscribe('invalid-order-send', async function({task, taskService}){
+    await taskService.complete(task);
+});
+
+client.subscribe('order-confirmation', async function({task, taskService}){
+    console.log("Order confirmation sent");
     await taskService.complete(task);
 });

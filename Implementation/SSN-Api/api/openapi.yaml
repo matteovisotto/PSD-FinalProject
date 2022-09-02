@@ -1,0 +1,245 @@
+openapi: 3.0.0
+info:
+  title: MangiaTranquillo third party APIs
+  description: APIs for requesting and managing **patient information** and **patient's
+    medical records**. Details on the interfaces of the services offered by MangiaTranquillo's
+    partners are provided below.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/matteovisotto/MangiaTranquillo/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:9090/
+  description: Local Server
+tags:
+- name: Patient
+  description: APIs of the national heath system to verify **patient identity** and
+    obtain data about the **patient's medical records**
+- name: Disease
+  description: APIs of the national heath system to obtain information about a given
+    **disease**.
+- name: Food
+  description: APIs of the national heath system to obtain information about a given
+    **food** and the diseases related to it.
+paths:
+  /patient/verify:
+    post:
+      tags:
+      - Patient
+      summary: Verify patient identity
+      description: This API allows to submit a request in order to verify the correctness
+        of a patient information and get his own unique identifier
+      operationId: verifyPatient
+      requestBody:
+        description: Information about the patient and the structure he is in.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPatientRequest'
+        required: true
+      responses:
+        "200":
+          description: The patient is admitted to the indicated facility
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        "400":
+          description: "Bad request, wrong data or invalid format"
+        "404":
+          description: The patient is not admitted to the indicated facility
+      x-swagger-router-controller: Patient
+  /patient/{id}/diseases:
+    get:
+      tags:
+      - Patient
+      summary: Get the list of diseases of a patient
+      description: This API allows to get all the diseases a patient is affected with
+      operationId: getPatientDiseases
+      parameters:
+      - name: id
+        in: path
+        description: Patient SSN identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Diseases detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientDiseases'
+        "404":
+          description: Patient id not found
+      x-swagger-router-controller: Patient
+  /disease/{id}:
+    get:
+      tags:
+      - Disease
+      summary: Get information about a disease
+      description: This API allows to get relevant information about a disease
+      operationId: getDisease
+      parameters:
+      - name: id
+        in: path
+        description: Disease SSN identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Disease detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseInfo'
+        "404":
+          description: Disease id not found
+      x-swagger-router-controller: Disease
+  /food/{id}:
+    get:
+      tags:
+      - Food
+      summary: Get information about a food
+      description: This API allows to get the information about a food
+      operationId: getFood
+      parameters:
+      - name: id
+        in: path
+        description: Food SSN identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Food detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Food'
+        "404":
+          description: Food id not found
+      x-swagger-router-controller: Food
+  /food/{id}/diseases:
+    get:
+      tags:
+      - Food
+      summary: Get information about a food
+      description: This API allows to get relevant information about a food and related
+        diseases
+      operationId: getFoodDiseases
+      parameters:
+      - name: id
+        in: path
+        description: Food SSN identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Food detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodRelatedDiseases'
+        "404":
+          description: Food id not found
+      x-swagger-router-controller: Food
+components:
+  schemas:
+    VerifyPatientRequest:
+      properties:
+        fiscal_code:
+          type: string
+        structure_id:
+          type: string
+      example:
+        fiscal_code: MRORSS65E13F770K
+        structure_id: SRF0472943
+    Patient:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        surname:
+          type: string
+        birth_date:
+          type: string
+      example:
+        id: 18493934
+        name: Mario
+        surname: Rossi
+        birth_date: 13/05/1965
+    PatientDiseases:
+      type: array
+      items:
+        $ref: '#/components/schemas/Disease'
+    Disease:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+      example:
+        id: 18493934
+        name: Diabetes
+        description: ""
+    DiseaseInfo:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        forbidden_food:
+          type: array
+          items:
+            $ref: '#/components/schemas/Food'
+      example:
+        id: 18493934
+        name: Diabetes
+        description: ""
+        forbidden_food:
+        - id: 10
+          name: Sugar
+    Food:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      example:
+        id: 10
+        name: Sugar
+    FoodRelatedDiseases:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        diseases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Disease'
+      example:
+        id: 10
+        name: Sugar
+        diseases:
+        - id: 18493934
+          name: Diabetes
+          description: ""
