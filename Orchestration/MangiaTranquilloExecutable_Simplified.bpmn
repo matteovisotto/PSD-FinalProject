@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_09kcrad" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_09kcrad" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:collaboration id="mangia-tranquillo-bpmn">
     <bpmn:participant id="Participant_0czvaj1" name="Hospital Patient" processRef="Process_1xrjeni" />
     <bpmn:participant id="Participant_0xoy8ft" name="MangiaTranquillo" processRef="mangia-tranquillo" />
@@ -139,7 +139,7 @@
     </bpmn:boundaryEvent>
     <bpmn:endEvent id="expired_session_message" name="Expired session">
       <bpmn:incoming>Flow_1aedom0</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1s6y8wp" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1s6y8wp" camunda:type="external" camunda:topic="expired-session-send" />
     </bpmn:endEvent>
     <bpmn:intermediateCatchEvent id="expireSession">
       <bpmn:incoming>Flow_0ae1dbz</bpmn:incoming>
@@ -171,6 +171,18 @@
       <bpmndi:BPMNShape id="Participant_0xoy8ft_di" bpmnElement="Participant_0xoy8ft" isHorizontal="true">
         <dc:Bounds x="160" y="230" width="1860" height="520" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_00l8o76_di" bpmnElement="Flow_00l8o76">
+        <di:waypoint x="1110" y="365" />
+        <di:waypoint x="1110" y="310" />
+        <di:waypoint x="1222" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="292" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wh2i8i_di" bpmnElement="Flow_1wh2i8i">
+        <di:waypoint x="1258" y="310" />
+        <di:waypoint x="1320" y="310" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1gabxhz_di" bpmnElement="Flow_1gabxhz">
         <di:waypoint x="720" y="448" />
         <di:waypoint x="720" y="610" />
@@ -239,10 +251,6 @@
         <di:waypoint x="1420" y="310" />
         <di:waypoint x="1465" y="310" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1wh2i8i_di" bpmnElement="Flow_1wh2i8i">
-        <di:waypoint x="1258" y="310" />
-        <di:waypoint x="1320" y="310" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1djjcue_di" bpmnElement="Flow_1djjcue">
         <di:waypoint x="1720" y="310" />
         <di:waypoint x="1780" y="310" />
@@ -250,14 +258,6 @@
       <bpmndi:BPMNEdge id="Flow_196ki85_di" bpmnElement="Flow_196ki85">
         <di:waypoint x="1880" y="310" />
         <di:waypoint x="1922" y="310" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_00l8o76_di" bpmnElement="Flow_00l8o76">
-        <di:waypoint x="1110" y="365" />
-        <di:waypoint x="1110" y="310" />
-        <di:waypoint x="1222" y="310" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1127" y="292" width="84" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ae1dbz_di" bpmnElement="Flow_0ae1dbz">
         <di:waypoint x="1110" y="415" />
@@ -279,12 +279,6 @@
         <di:waypoint x="470" y="390" />
         <di:waypoint x="520" y="390" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_1wqnaio_di" bpmnElement="getPatientOrder">
-        <dc:Bounds x="1222" y="292" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1186" y="335" width="87" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_18stc4a_di" bpmnElement="Gateway_18stc4a" isMarkerVisible="true">
         <dc:Bounds x="1465" y="285" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -356,6 +350,12 @@
       <bpmndi:BPMNShape id="Event_12dyxim_di" bpmnElement="expireSession">
         <dc:Bounds x="1212" y="462" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wqnaio_di" bpmnElement="getPatientOrder">
+        <dc:Bounds x="1222" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1186" y="335" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0xeh5uj_di" bpmnElement="Event_0zdk3m1">
         <dc:Bounds x="702" y="412" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -389,10 +389,6 @@
       <bpmndi:BPMNEdge id="Flow_09vpiya_di" bpmnElement="Flow_09vpiya">
         <di:waypoint x="900" y="372" />
         <di:waypoint x="900" y="160" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1g1k58j_di" bpmnElement="Flow_1g1k58j">
-        <di:waypoint x="1240" y="160" />
-        <di:waypoint x="1240" y="292" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1y5c6vq_di" bpmnElement="Flow_1y5c6vq">
         <di:waypoint x="850" y="620" />
@@ -428,6 +424,10 @@
         <di:waypoint x="1320" y="420" />
         <di:waypoint x="1290" y="420" />
         <di:waypoint x="1290" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g1k58j_di" bpmnElement="Flow_1g1k58j">
+        <di:waypoint x="1240" y="160" />
+        <di:waypoint x="1240" y="292" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

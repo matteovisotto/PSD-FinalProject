@@ -7,8 +7,33 @@ const client = new Client(config);
 var RESTClient = require("node-rest-client").Client;
 var restclient = new RESTClient();
 
-function hasSubArray(master, sub) {
-    return sub.every((i => v => i = master.indexOf(v, i) + 1)(0));
+function hasSubArray(source, dest) {
+    var c =  source.filter(i => dest.includes(i));
+    return c.length !== 0;
+}
+
+function loadDisease(disease){
+    return new Promise((resolve, reject) =>
+    {
+        var args = {
+            headers: { "Content-Type": "application/json" },
+        };
+        restclient.get(
+            "http://localhost:9090/disease/" + disease.id,
+            args,
+            function (data, response) {
+                var forbidden_food = [];
+                if (response.statusCode === 200) {
+                    data.forbidden_food.forEach(food => {
+                        if (!forbidden_food.includes(food.id)) {
+                            forbidden_food.push(food.id);
+                        }
+                    });
+                }
+                resolve(forbidden_food);
+            }
+        )
+    });
 }
 
 client.subscribe('get-menu', async function({ task, taskService }) {
@@ -18,17 +43,26 @@ client.subscribe('get-menu', async function({ task, taskService }) {
         {
             "id": 0,
             "name": "Pasta al pomodoro",
-            "food": [10,15,30,20]
+            "food": [10,15,30,20],
+            "meal": "lunch"
         },
         {
             "id": 1,
-            "name": "Pasta al pesto",
-            "food": [10,15,30,40]
+            "name": "Torta",
+            "food": [10,11],
+            "meal": "dinner"
         },
         {
             "id": 2,
-            "name": "Patate lesse",
-            "food": [40,45,4]
+            "name": "Verdure",
+            "food": [12,13],
+            "meal": "breakfast"
+        },
+        {
+            "id": 3,
+            "name": "Pane integrale",
+            "food": [20,21],
+            "meal": "breakfast"
         }
     ];
     processVariables.set("menu", menu);
@@ -49,7 +83,7 @@ client.subscribe('verify-cf', async function({ task, taskService }) {
         data: { fiscal_code: cf, structure_id: hId },
         headers: { "Content-Type": "application/json" },
     };
-    /*restclient.post(
+    restclient.post(
         "http://localhost:9090/patient/verify",
         args,
         function (data, response) {
@@ -67,9 +101,13 @@ client.subscribe('verify-cf', async function({ task, taskService }) {
                 taskService.handleBpmnError(task, "400", "An error occurred");
             }
         }
-    );*/
-    processVariables.set("pid", 1)
-    taskService.complete(task, processVariables);
+    );
+    //taskService.complete(task, processVariables);
+});
+
+client.subscribe('cf-error', async function({task, taskService}){
+    console.log("Error in CF Validation");
+    await taskService.complete(task);
 });
 
 client.subscribe('filter-by-pid', async function({ task, taskService }) {
@@ -80,39 +118,39 @@ client.subscribe('filter-by-pid', async function({ task, taskService }) {
     };
     const processVariables = new Variables();
     var forbidden_food = [];
-    /*restclient.get(
+    let requests = [];
+
+    restclient.get(
         "http://localhost:9090/patient/"+pid+"/diseases",
         args,
         function (data, response) {
             console.log("> Response: " + response.statusCode);
             if(response.statusCode === 200) {
-                // parsed response body as js object
+                console.log(JSON.stringify(data))
                 data.forEach(disease => {
-                    restclient.get(
-                        "http://localhost:9090/disease/"+disease.id,
-                        args,
-                        function (data, response) {
-                            if(response.statusCode === 200){
-                                data.forbidden_food.forEach(food => {
-                                    if(!forbidden_food.includes(food.id)){
-                                        forbidden_food.push(food.id);
-                                    }
-                                });
-                            }
-                        }
-                    );
+                    requests.push(loadDisease(disease));
                 });
-                var filtered = menu.filter(m => !hasSubArray(m.food, forbidden_food));
-                processVariables.set("filtered_menu", filtered);
-                // Complete the task
-                taskService.complete(task, processVariables);
+                Promise.all(requests).then((allRes) => {
+                    allRes.forEach(subArr => {
+                       subArr.forEach(el => {
+                           if (!forbidden_food.includes(el)) {
+                               forbidden_food.push(el);
+                           }
+                       });
+                    });
+                    console.log("Forbidden: " + JSON.stringify(forbidden_food));
+                    console.log("Menu: " + JSON.stringify(menu));
+                    var filtered = menu.filter(m => !hasSubArray(m.food, forbidden_food));
+                    console.log("Filtered: " + JSON.stringify(filtered))
+                    processVariables.set("filtered_menu", filtered);
+                    // Complete the task
+                    taskService.complete(task, processVariables);
+                });
             } else {
                 taskService.handleBpmnError(task, "400", "Patient not found");
             }
         }
-    );*/
-    processVariables.set("filtered_menu", menu);
-    await taskService.complete(task, processVariables);
+    );
 });
 
 client.subscribe('filtered-menu-send', async function({ task, taskService }) {
@@ -138,5 +176,10 @@ client.subscribe('invalid-order-send', async function({task, taskService}){
 
 client.subscribe('order-confirmation', async function({task, taskService}){
     console.log("Order confirmation sent");
+    await taskService.complete(task);
+});
+
+client.subscribe('expired-session-send', async function({task, taskService}){
+    console.log("Session expired, message sent");
     await taskService.complete(task);
 });

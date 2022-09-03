@@ -10,21 +10,16 @@
  **/
 exports.getPatientDiseases = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
+    var resp = [ {
   "id" : 18493934,
   "name" : "Diabetes",
   "description" : ""
 }, {
-  "id" : 18493934,
-  "name" : "Diabetes",
+  "id" : 18493935,
+  "name" : "Allergy",
   "description" : ""
 } ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    resolve(resp);
   });
 }
 
@@ -38,18 +33,20 @@ exports.getPatientDiseases = function(id) {
  **/
 exports.verifyPatient = function(body) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "id" : 18493934,
-  "name" : "Mario",
-  "surname" : "Rossi",
-  "birth_date" : "13/05/1965"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    var cf = body.fiscal_code;
+    var hid = body.structure_id;
+    if (cf === 'VSTMTT98E13F770H') {
+        var obj = {
+            "id": 18493934,
+            "name": "Matteo",
+            "surname": "Visotto",
+            "birth_date": "13/05/1998"
+        };
+        resolve(obj);
     } else {
-      resolve();
+        reject({});
     }
+
   });
 }
 

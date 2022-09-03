@@ -16,7 +16,7 @@ module.exports.getPatientDiseases = function getPatientDiseases (req, res, next,
 module.exports.verifyPatient = function verifyPatient (req, res, next, body) {
   Patient.verifyPatient(body)
     .then(function (response) {
-      utils.writeJson(res, response);
+        utils.writeJson(res, response);
     })
     .catch(function (response) {
       utils.writeJson(res, response);

@@ -10,21 +10,38 @@
  **/
 exports.getDisease = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "id" : 18493934,
-  "name" : "Diabetes",
-  "description" : "",
-  "forbidden_food" : [ {
-    "id" : 10,
-    "name" : "Sugar"
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    var resp = {};
+    if(id === 18493934){
+      resp = {
+        "id" : 18493934,
+        "name" : "Diabetes",
+        "description" : "",
+        "forbidden_food" : [ {
+          "id" : 10,
+          "name" : "Sugar"
+        }, {
+          "id" : 11,
+          "name" : "Brown Sugar"
+        } ]
+      };
+    } else if (id === 18493935){
+      resp = {
+        "id" : 18493934,
+        "name" : "Allergy",
+        "description" : "",
+        "forbidden_food" : [ {
+          "id" : 12,
+          "name" : "Apple"
+        }, {
+          "id" : 13,
+          "name" : "Carrots"
+        }, {
+          "id" : 14,
+          "name" : "Pineapple"
+        } ]
+      };
     }
+    resolve(resp);
   });
 }
 
