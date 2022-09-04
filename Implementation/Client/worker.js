@@ -19,7 +19,7 @@ function loadDisease(disease){
             headers: { "Content-Type": "application/json" },
         };
         restclient.get(
-            "http://localhost:9090/disease/" + disease.id,
+            "http://localhost:9090/api/v1/disease/" + disease.id,
             args,
             function (data, response) {
                 var forbidden_food = [];
@@ -84,7 +84,7 @@ client.subscribe('verify-cf', async function({ task, taskService }) {
         headers: { "Content-Type": "application/json" },
     };
     restclient.post(
-        "http://localhost:9090/patient/verify",
+        "http://localhost:9090/api/v1/patient/verify",
         args,
         function (data, response) {
             console.log("> Response: " + response.statusCode);
@@ -121,7 +121,7 @@ client.subscribe('filter-by-pid', async function({ task, taskService }) {
     let requests = [];
 
     restclient.get(
-        "http://localhost:9090/patient/"+pid+"/diseases",
+        "http://localhost:9090/api/v1/patient/"+pid+"/diseases",
         args,
         function (data, response) {
             console.log("> Response: " + response.statusCode);

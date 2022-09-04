@@ -9,9 +9,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/matteovisotto/MangiaTranquillo/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: http://localhost:9090/
+- url: http://localhost:9090/api/v1
   description: Local Server
 tags:
 - name: Patient
