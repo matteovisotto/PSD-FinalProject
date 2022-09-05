@@ -143,6 +143,7 @@ client.subscribe('filter-by-pid', async function({ task, taskService }) {
                     var filtered = menu.filter(m => !hasSubArray(m.food, forbidden_food));
                     console.log("Filtered: " + JSON.stringify(filtered))
                     processVariables.set("filtered_menu", filtered);
+			processVariables.set("orderVerified", false);
                     // Complete the task
                     taskService.complete(task, processVariables);
                 });
@@ -171,6 +172,20 @@ client.subscribe('filtered-menu-send', async function({ task, taskService }) {
 });
 
 client.subscribe('invalid-order-send', async function({task, taskService}){
+    console.log("Invalid Order");
+    const client = mqtt.connect('mqtt://server.matmacsystem.it:1883', {
+        clientId: '',
+        clean: true,
+        connectTimeout: 4000,
+        reconnectPeriod: 1000,
+    });
+    client.on('connect', () => {
+        client.publish('camunda/order/request', JSON.stringify(task.variables.get('filtered_menu')), { qos: 0, retain: false }, (error) => {
+            if (error) {
+                console.error(error)
+            }
+        });
+    });
     await taskService.complete(task);
 });
 
