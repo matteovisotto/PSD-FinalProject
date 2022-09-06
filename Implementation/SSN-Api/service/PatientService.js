@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 
 /**
  * Get the list of diseases of a patient
@@ -10,16 +11,15 @@
  **/
 exports.getPatientDiseases = function(id) {
   return new Promise(function(resolve, reject) {
-    var resp = [ {
-  "id" : 18493934,
-  "name" : "Diabetes",
-  "description" : ""
-}, {
-  "id" : 18493935,
-  "name" : "Allergy",
-  "description" : ""
-} ];
-    resolve(resp);
+      let data = fs.readFileSync('patient_diseases.json');
+      let all_data = JSON.parse(data);
+      var resp = [];
+      all_data.forEach(d => {
+          if(d.patient_id === id){
+              resp = d.diseases;
+          }
+      });
+      resolve(resp);
   });
 }
 
@@ -35,18 +35,15 @@ exports.verifyPatient = function(body) {
   return new Promise(function(resolve, reject) {
     var cf = body.fiscal_code;
     var hid = body.structure_id;
-    if (cf === 'VSTMTT98E13F770H') {
-        var obj = {
-            "id": 18493934,
-            "name": "Matteo",
-            "surname": "Visotto",
-            "birth_date": "13/05/1998"
-        };
-        resolve(obj);
-    } else {
-        reject({});
-    }
-
+    var resp = {};
+    let data = fs.readFileSync('patients.json');
+    let all_data = JSON.parse(data);
+    all_data.forEach(d => {
+       if(d.fiscal_code === cf){
+           resp = d.data;
+       }
+    });
+    resolve(resp);
   });
 }
 

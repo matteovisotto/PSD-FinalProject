@@ -1,0 +1,49 @@
+[
+  {
+    "patient_id": 1,
+    "diseases": [{
+      "id" : 18493934,
+      "name" : "Diabetes",
+      "description" : ""
+    },
+      {
+        "id" : 18493935,
+        "name" : "Lactose",
+        "description" : ""
+      }]
+  },
+  {
+    "patient_id": 2,
+    "diseases": [{
+      "id": 18493938,
+      "name": "Without waste",
+      "description":""
+    },
+      {
+        "id": 18493939,
+        "name": "Semi solid",
+        "description":""
+      },
+      {
+        "id": 18493940,
+        "name": "Ipocaloric",
+        "description":""
+      }]
+  },
+  {
+    "patient_id": 3,
+    "diseases": [{
+      "id": 18493942,
+      "name": "Liquid",
+      "description":""
+    }]
+  },
+  {
+    "patient_id": 4,
+    "diseases": [{
+      "id": 18493936,
+      "name": "Celiac",
+      "description": ""
+    }]
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+  "id" : 18493934,
+  "name" : "Diabetes",
+  "description" : ""
+  },
+  {
+  "id" : 18493935,
+  "name" : "Lactose",
+  "description" : ""
+  },
+  {
+    "id": 18493936,
+    "name": "Celiac",
+    "description": ""
+  },
+  {
+    "id": 18493937,
+    "name": "Eggs",
+    "description": ""
+  },
+  {
+    "id": 18493938,
+    "name": "Without waste",
+    "description":""
+  },
+  {
+    "id": 18493939,
+    "name": "Semi solid",
+    "description":""
+  },
+  {
+     "id": 18493940,
+    "name": "Ipocaloric",
+    "description":""
+  },
+  {
+    "id": 18493941,
+    "name": "Cholesterol lowering",
+    "description":""
+  },
+  {
+    "id": 18493942,
+    "name": "Liquid",
+    "description":""
+  },
+  {
+    "id": 18493943,
+    "name": "Ipoproteic",
+    "description":""
+  }
+]

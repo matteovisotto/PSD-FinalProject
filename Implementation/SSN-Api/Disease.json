@@ -1,0 +1,451 @@
+[
+  {
+    "id" : 18493934,
+    "name" : "Diabetes",
+    "description" : "",
+    "forbidden_food" : 
+    [ 
+      {
+        "id": 19843231,
+        "name": "The with brown sugar"
+      },
+      {
+        "id": 19843232,
+        "name": "The with white sugar"
+      },
+      {
+        "id": 19843235,
+        "name": "Barley with sugar"
+      },
+      {
+        "id":19843240,
+        "name":"Strawberry jam"
+      },
+      {
+        "id": 19843241,
+        "name": "Pasta with tomatoes"
+      },
+      {
+        "id": 19843264,
+        "name": "Pasta gluten free"
+      },
+      {
+        "id": 19843242,
+        "name": "Pasta with pesto"
+      },
+      {
+      "id": 19843252,
+      "name": "Bread"
+      },
+      {
+        "id": 19843253,
+        "name": "Bread without eggs"
+      },
+      {
+        "id": 19843254,
+        "name": "Bread gluten free"
+      },
+      {
+        "id": 19843255,
+        "name": "Cooked rice"
+      },
+      {
+        "id":19843257,
+        "name":"Potato puree"
+      }
+    ]
+  },
+  {
+    "id" : 18493935,
+    "name" : "Lactose",
+    "description" : "",
+    "forbidden_food":
+    [
+      {
+        "id": 19843236,
+        "name": "Whole Milk"
+      },
+      {
+        "id":19843237,
+        "name":"Skimmed milk"
+      },
+      {
+        "id": 19843243,
+        "name": "Cheese for pasta"
+      },
+      {
+        "id":19843258,
+        "name":"Cheese"
+      }
+    ]
+    },
+    {
+      "id": 18493936,
+      "name": "Celiac",
+      "description": "",
+      "forbidden_food":
+      [
+        {
+          "id":19843238,
+          "name":"Hard rusks"
+        },
+        {
+          "id":19843238,
+          "name":"Soft rusks"
+        },
+        {
+          "id": 19843241,
+          "name": "Pasta with tomatoes"
+        },
+        {
+          "id":19843239,
+          "name":"Biscuits"
+        },
+        {
+          "id":19843261,
+          "name":"Rusks without eggs"
+        },
+        {
+          "id": 19843242,
+          "name": "Pasta with pesto"
+        },
+        {
+          "id": 19843252,
+          "name": "Bread"
+        },
+        {
+          "id": 19843253,
+          "name": "Bread without eggs"
+        }
+      ]
+    },
+    {
+      "id": 18493937,
+      "name": "Eggs",
+      "description": "",
+      "forbidden_food":
+    [
+      {
+        "id": 19843249,
+        "name": "Eggs"
+      },
+      {
+        "id": 19843252,
+        "name": "Bread"
+      },
+      {
+        "id": 19843254,
+        "name": "Bread gluten free"
+      }
+    ]
+    },
+    {
+      "id":18493938,
+      "name": "Without waste",
+      "description":"",
+      "forbidden_food":
+      [
+        {
+          "id": 19843245,
+          "name": "Vegetable broth"
+        },
+        {
+        "id": 19843250,
+        "name": "Cooked vegetables"
+        },
+        {
+          "id": 19843251,
+          "name": "Vegetables raw"
+        },
+        {
+          "id":19843259,
+          "name":"Fresh fruit"
+        }
+      ]
+    },
+    {
+      "id":18493939,
+      "name": "Semi solid",
+      "description":"",
+      "forbidden_food":
+      [
+        {
+          "id":19843238,
+          "name":"Hard rusks"
+        },
+        {
+          "id":19843260,
+          "name":"Gluten free rusks"
+        },
+        {
+          "id":19843261,
+          "name":"Rusks without eggs"
+        },
+        {
+          "id":19843239,
+          "name":"Biscuits"
+        },
+        {
+          "id": 19843241,
+          "name": "Pasta with tomatoes"
+        },
+        {
+          "id": 19843264,
+          "name": "Pasta gluten free"
+        },
+        {
+          "id": 19843242,
+          "name": "Pasta with pesto"
+        },
+        {
+          "id": 19843247,
+          "name": "Meat"
+        },
+        {
+          "id": 19843248,
+          "name": "Fish"
+        },
+        {
+          "id": 19843251,
+          "name": "Vegetables raw"
+        },
+        {
+          "id": 19843252,
+          "name": "Bread"
+        },
+        {
+          "id": 19843253,
+          "name": "Bread without eggs"
+        },
+        {
+          "id": 19843254,
+          "name": "Bread gluten free"
+        },
+        {
+          "id": 19843255,
+          "name": "Cooked rice"
+        },
+        {
+          "id":19843256,
+          "name":"Cooked ham"
+        },
+        {
+          "id":19843257,
+          "name":"Potato puree"
+        },
+        {
+          "id":19843259,
+          "name":"Fresh fruit"
+        }
+  
+      ]
+    },
+    {
+       "id":18493940,
+      "name": "Ipocaloric",
+      "description":"",
+      "forbidden_food":
+      [
+        {
+          "id": 19843231,
+          "name": "The with brown sugar"
+        },
+        {
+          "id": 19843232,
+          "name": "The with white sugar"
+        },
+        {
+          "id": 19843235,
+          "name": "Barley with sugar"
+        },
+        {
+          "id":19843240,
+          "name":"Strawberry jam"
+        },
+        {
+          "id": 19843241,
+          "name": "Pasta with tomatoes"
+        },
+        {
+          "id": 19843264,
+          "name": "Pasta gluten free"
+        },
+        {
+          "id": 19843242,
+          "name": "Pasta with pesto"
+        },
+        {
+        "id": 19843252,
+        "name": "Bread"
+        },
+        {
+          "id": 19843253,
+          "name": "Bread without eggs"
+        },
+        {
+          "id": 19843254,
+          "name": "Bread gluten free"
+        },
+        {
+          "id": 19843255,
+          "name": "Cooked rice"
+        }  
+      ]
+    },
+    {
+      "id":18493941,
+      "name":"Cholesterol lowering",
+      "description":"",
+      "forbidden_food":
+      [
+        {
+          "id": 19843236,
+          "name": "Whole Milk" 
+        },
+        {
+        "id": 19843243,
+        "name": "Cheese for pasta"
+        },
+        {
+          "id": 19843244,
+          "name": "Extra virgin olive oil"
+        },
+        {
+          "id": 19843249,
+          "name": "Eggs"
+        }
+      ]
+    },
+    {
+      "id":18493942,
+      "name": "Liquid",
+      "description":"",
+      "forbidden_food":
+      [
+        {
+          "id":19843238,
+          "name":"Hard rusks"
+        },
+        {
+          "id":19843238,
+          "name":"Soft rusks"
+        },
+        {
+          "id":19843260,
+          "name":"Gluten free rusks"
+        },
+        {
+          "id":19843261,
+          "name":"Rusks without eggs"
+        },
+        {
+          "id":19843239,
+          "name":"Biscuits"
+        },
+        {
+          "id":19843240,
+          "name":"Strawberry jam"
+        },
+        {
+          "id": 19843241,
+          "name": "Pasta with tomatoes"
+        },
+        {
+          "id": 19843264,
+          "name": "Pasta gluten free"
+        },
+        {
+          "id": 19843242,
+          "name": "Pasta with pesto"
+        },
+        {
+          "id": 19843243,
+          "name": "Cheese for pasta"
+        },
+        {
+          "id": 19843246,
+          "name": "Semolina"
+        },
+        {
+          "id": 19843247,
+          "name": "Meat"
+        },
+        {
+          "id": 19843248,
+          "name": "Fish"
+        },
+        {
+          "id": 19843249,
+          "name": "Eggs"
+        },
+        {
+          "id": 19843250,
+          "name": "Cooked vegetables"
+        },
+        {
+          "id": 19843251,
+          "name": "Vegetables raw"
+        },
+        {
+          "id": 19843252,
+          "name": "Bread"
+        },
+        {
+          "id": 19843253,
+          "name": "Bread without eggs"
+        },
+        {
+          "id": 19843254,
+          "name": "Bread gluten free"
+        },
+        {
+          "id": 19843255,
+          "name": "Cooked rice"
+        },
+        {
+          "id":19843256,
+          "name":"Cooked ham"
+        },
+        {
+          "id":19843257,
+          "name":"Potato puree"
+        },
+        {
+          "id":19843258,
+          "name":"Cheese"
+        },
+        {
+          "id":19843259,
+          "name":"Fresh fruit"
+        },
+        {
+          "id":19843261,
+          "name":"Cooked fruit"
+        } 
+      ]
+    },
+    {
+      "id":18493943,
+      "name": "Ipoproteic",
+      "description":"",
+      "forbidden_food":
+      [
+        {
+          "id": 19843247,
+          "name": "Meat"
+        },
+        {
+          "id": 19843249,
+          "name": "Eggs"
+        },
+        {
+          "id":19843256,
+          "name":"Cooked ham"
+        },
+        {
+          "id":19843257,
+          "name":"Potato puree"
+        }     
+      ]
+    }
+]

@@ -1,6 +1,7 @@
 const {Client, logger, Variables} = require("camunda-external-task-client-js");
 const config = { baseUrl: 'https://camunda.matmacsystem.it/engine-rest', use: logger, asyncResponseTimeout: 10000 };
 const mqtt = require('mqtt');
+const fs = require('fs');
 // create a Client instance with custom configuration
 const client = new Client(config);
 
@@ -39,32 +40,8 @@ function loadDisease(disease){
 client.subscribe('get-menu', async function({ task, taskService }) {
 
     const processVariables = new Variables();
-    const menu = [
-        {
-            "id": 0,
-            "name": "Pasta al pomodoro",
-            "food": [10,15,30,20],
-            "meal": "lunch"
-        },
-        {
-            "id": 1,
-            "name": "Torta",
-            "food": [10,11],
-            "meal": "dinner"
-        },
-        {
-            "id": 2,
-            "name": "Verdure",
-            "food": [12,13],
-            "meal": "breakfast"
-        },
-        {
-            "id": 3,
-            "name": "Pane integrale",
-            "food": [20,21],
-            "meal": "breakfast"
-        }
-    ];
+    let rawdata = fs.readFileSync('menu.json');
+    let menu = JSON.parse(rawdata);
     processVariables.set("menu", menu);
 
     console.log(`Loaded menu`);
@@ -142,8 +119,9 @@ client.subscribe('filter-by-pid', async function({ task, taskService }) {
                     console.log("Menu: " + JSON.stringify(menu));
                     var filtered = menu.filter(m => !hasSubArray(m.food, forbidden_food));
                     console.log("Filtered: " + JSON.stringify(filtered))
+                    processVariables.set("menu", "");
                     processVariables.set("filtered_menu", filtered);
-			processVariables.set("orderVerified", false);
+			        processVariables.set("orderVerified", false);
                     // Complete the task
                     taskService.complete(task, processVariables);
                 });
@@ -168,7 +146,9 @@ client.subscribe('filtered-menu-send', async function({ task, taskService }) {
             }
         });
     });
-    await taskService.complete(task);
+    const processVariable = new Variables()
+    processVariable.set("filtered_menu", "");
+    await taskService.complete(task, processVariable);
 });
 
 client.subscribe('invalid-order-send', async function({task, taskService}){

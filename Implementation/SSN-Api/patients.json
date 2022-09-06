@@ -1,0 +1,38 @@
+[
+  {
+    "fiscal_code": "VSTMTT98E13F770H",
+    "data": {
+      "id": 1,
+      "name": "Matteo",
+      "surname": "Visotto",
+      "birth_date": "13/05/1998"
+    }
+  },
+  {
+    "fiscal_code": "MRORSS65E13F770K",
+    "data": {
+      "id": 2,
+      "name": "Mario",
+      "surname": "Rossi",
+      "birth_date": "13/05/1965"
+    }
+  },
+  {
+    "fiscal_code": "MRORSS65E13F770J",
+    "data": {
+      "id": 3,
+      "name": "Mario",
+      "surname": "Rossi",
+      "birth_date": "13/05/1965"
+    }
+  },
+  {
+    "fiscal_code": "MRORSS65E13F770L",
+    "data": {
+      "id": 4,
+      "name": "Mario",
+      "surname": "Rossi",
+      "birth_date": "13/05/1965"
+    }
+  }
+]

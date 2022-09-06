@@ -1,5 +1,6 @@
 import requests
 import paho.mqtt.client as mqtt
+import json
 
 CAMUNDA_BASE = 'https://camunda.matmacsystem.it/engine-rest/'
 BROKER = "server.matmacsystem.it"
@@ -16,8 +17,12 @@ def on_message(client, userdata, msg):
     user_in = input("Send the menu? (Y/N): ")
     if user_in == 'y' or user_in == 'Y':
         url = CAMUNDA_BASE + 'message'
+        menu = json.loads(msg.payload.decode())
+        order_menu = []
+        for m in menu:
+            order_menu.append(m['id'])
         messageObject = {"messageName": "getPatientOrder", "businessKey": "default",
-                         "processVariables": {"order": {"value": msg.payload.decode(), "type": "string"}}}
+                         "processVariables": {"order": {"value": order_menu, "type": "string"}}}
         x = requests.post(url, json=messageObject)
         print(x.text)
 
