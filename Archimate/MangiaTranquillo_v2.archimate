@@ -53,7 +53,6 @@ This will be a subprocess with multi instance parallel process.</documentation>
     <element xsi:type="archimate:ApplicationInterface" name="WebApp" id="id-81a88ac8f5454333a35b5c24b75b04fa"/>
     <element xsi:type="archimate:ApplicationInterface" name="CRM HTTP REST APIs " id="id-9bb30f3677cb43c483448209cc9eb69b"/>
     <element xsi:type="archimate:ApplicationFunction" name="Resource Planning" id="id-5b8a49054b7d49edab322feb21e5e805"/>
-    <element xsi:type="archimate:ApplicationService" name="Preparation Planning Service" id="id-f429ec443a7849b6b47f31a21ff82642"/>
   </folder>
   <folder name="Technology &amp; Physical" id="id-26a265bebc3443b990f418b440c80e8b" type="technology"/>
   <folder name="Motivation" id="id-bd07bc2b3f304d8aaa2e943af9a52fb9" type="motivation"/>
@@ -123,7 +122,6 @@ This will be a subprocess with multi instance parallel process.</documentation>
     <element xsi:type="archimate:AccessRelationship" id="id-df03b43137fb48f5b29daf92cfd5af45" source="id-29af1136649048d689d3a71f15d286d7" target="id-034911554ab04f55ae21c121efae8298" accessType="1"/>
     <element xsi:type="archimate:AccessRelationship" id="id-9a53cfb3e42e45e88c337cae229f98ad" source="id-457348a897f84030abb7854fa2da6474" target="id-034911554ab04f55ae21c121efae8298"/>
     <element xsi:type="archimate:AssignmentRelationship" id="id-f63817d30685482381d311cffc07d5dc" source="id-f4078d0a2a8b4cf8888f14ac4feb32b1" target="id-5b8a49054b7d49edab322feb21e5e805"/>
-    <element xsi:type="archimate:RealizationRelationship" id="id-64933e4bb66e4651b0d4fdd55daa60f2" source="id-f4078d0a2a8b4cf8888f14ac4feb32b1" target="id-f429ec443a7849b6b47f31a21ff82642"/>
   </folder>
   <folder name="Views" id="id-d8c415babe50448aa3963d11ca1c98a7" type="diagrams">
     <element xsi:type="archimate:ArchimateDiagramModel" name="BusinessLayer" id="id-575925ab5f70471cac49de39082ca0d7" viewpoint="business_process_cooperation">
@@ -334,7 +332,6 @@ This will be a subprocess with multi instance parallel process.</documentation>
         <sourceConnection xsi:type="archimate:Connection" id="id-5ae4f954520d475a8f4e69101b1191f3" source="id-897229ed07454a6aacfc1829eec4f332" target="id-7af1645abcc64d9c8129fe9202c6ee94" archimateRelationship="id-133a0c55cad64800b39038c98dd7f914"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-13385014ce0444d58b07210617e1e36c" source="id-897229ed07454a6aacfc1829eec4f332" target="id-5965514aae4841bf8ed8444a086f9408" archimateRelationship="id-ee5786e6b0c340568a3965d577af39ad"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-016f4d7853f04ce1bf244caf66f0c7fa" source="id-897229ed07454a6aacfc1829eec4f332" target="id-be00073a1ccc4e1e93d9ee3194429142" archimateRelationship="id-f63817d30685482381d311cffc07d5dc"/>
-        <sourceConnection xsi:type="archimate:Connection" id="id-36a98c56479a496d9c0b9ffcec57f7df" source="id-897229ed07454a6aacfc1829eec4f332" target="id-506bef1dd52a483aa1fd2469aa6d8c98" archimateRelationship="id-64933e4bb66e4651b0d4fdd55daa60f2"/>
         <child xsi:type="archimate:DiagramObject" id="id-4f58f82a045d4237b8bc149f48258ee6" targetConnections="id-e6d82dbf805e4231af0eaa8b665d5fc8" archimateElement="id-e4f20a20f7a840f1ac6050f3eea8dae3">
           <bounds x="24" y="48" width="120" height="55"/>
         </child>
@@ -377,9 +374,6 @@ This will be a subprocess with multi instance parallel process.</documentation>
           <bendpoint startX="-120" startY="72" endX="144" endY="-135"/>
           <bendpoint startX="-120" startY="204" endX="144" endY="-3"/>
         </sourceConnection>
-      </child>
-      <child xsi:type="archimate:DiagramObject" id="id-506bef1dd52a483aa1fd2469aa6d8c98" targetConnections="id-36a98c56479a496d9c0b9ffcec57f7df" archimateElement="id-f429ec443a7849b6b47f31a21ff82642">
-        <bounds x="864" y="177" width="121" height="55"/>
       </child>
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="BusinessLayer-Order" id="id-7b4dc12e275c4b5fb7ddb40a6a9261eb">
