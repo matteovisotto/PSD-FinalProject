@@ -69,11 +69,12 @@ This will be a subprocess with multi instance parallel process.</documentation>
     <element xsi:type="archimate:ApplicationService" name="Filtering Service" id="id-4b2c3942da4349f4ac90836071037e63"/>
     <element xsi:type="archimate:ApplicationInterface" name="WebApp" id="id-81a88ac8f5454333a35b5c24b75b04fa"/>
     <element xsi:type="archimate:ApplicationInterface" name="CRM HTTP REST APIs " id="id-9bb30f3677cb43c483448209cc9eb69b"/>
-    <element xsi:type="archimate:ApplicationFunction" name="Resource Planning" id="id-5b8a49054b7d49edab322feb21e5e805"/>
+    <element xsi:type="archimate:ApplicationFunction" name="Material Management" id="id-5b8a49054b7d49edab322feb21e5e805"/>
     <element xsi:type="archimate:ApplicationComponent" name="Payment Module" id="id-0738b057c7b24341bd3d97bf521bf55c"/>
     <element xsi:type="archimate:ApplicationComponent" name="Material Management Module" id="id-b3caf4a37bc6443d9e5380d4c60de339"/>
     <element xsi:type="archimate:ApplicationService" name="Payment Service" id="id-4ee8a4ed46454b9382add6d49fe300da"/>
     <element xsi:type="archimate:ApplicationService" name="Application Service" id="id-62838402e13d4494b754f02c9b15590d"/>
+    <element xsi:type="archimate:ApplicationService" name="Resource Planning" id="id-3f30b5c8c66642a0818694b02653125d"/>
   </folder>
   <folder name="Technology &amp; Physical" id="id-26a265bebc3443b990f418b440c80e8b" type="technology"/>
   <folder name="Motivation" id="id-bd07bc2b3f304d8aaa2e943af9a52fb9" type="motivation"/>
@@ -152,11 +153,12 @@ This will be a subprocess with multi instance parallel process.</documentation>
     <element xsi:type="archimate:CompositionRelationship" id="id-7f36c006f6ed44ad84bac313b15be7b0" source="id-8ad73c122fc34db58d18b280eec29604" target="id-3e3042093fbb40fc8bbcf8793af39709"/>
     <element xsi:type="archimate:AccessRelationship" id="id-8fa46429890e444ea9274c24b1c2016d" source="id-e4b1f468088d49d9bf815561b8dcd351" target="id-263b1b0bc6d941f1adad267cb239957c"/>
     <element xsi:type="archimate:RealizationRelationship" id="id-1ec552b67e5448938b1d385873a768fa" source="id-0738b057c7b24341bd3d97bf521bf55c" target="id-4ee8a4ed46454b9382add6d49fe300da"/>
-    <element xsi:type="archimate:RealizationRelationship" id="id-dad6e24c7ed349b1a29e857a6df31f0e" source="id-b3caf4a37bc6443d9e5380d4c60de339" target="id-5b8a49054b7d49edab322feb21e5e805"/>
+    <element xsi:type="archimate:RealizationRelationship" id="id-dad6e24c7ed349b1a29e857a6df31f0e" source="id-b3caf4a37bc6443d9e5380d4c60de339" target="id-3f30b5c8c66642a0818694b02653125d"/>
     <element xsi:type="archimate:CompositionRelationship" id="id-663a99afe58a4c3682c573ea952c3a9b" source="id-f355b941cea74d0b9d8fc18d0ed8b2a3" target="id-0b2c2a7a208a4f409587b91a6304780e"/>
     <element xsi:type="archimate:CompositionRelationship" id="id-aa540dc7308349ba8fa28813daf5bee3" source="id-f355b941cea74d0b9d8fc18d0ed8b2a3" target="id-2744bd41cfbf49d1b11f5d2355bc17b2"/>
     <element xsi:type="archimate:TriggeringRelationship" id="id-0cc5d9c0a1054359ac1196d881ffc343" source="id-0b2c2a7a208a4f409587b91a6304780e" target="id-2744bd41cfbf49d1b11f5d2355bc17b2"/>
     <element xsi:type="archimate:CompositionRelationship" id="id-b598b6c2b388408faa11fff4f647af82" source="id-2744bd41cfbf49d1b11f5d2355bc17b2" target="id-ecfc5e5785614538a8e4b1c3ee5f7bb9"/>
+    <element xsi:type="archimate:AssignmentRelationship" id="id-0b926ae426fe426e9e9308ef05e72bef" source="id-f4078d0a2a8b4cf8888f14ac4feb32b1" target="id-5b8a49054b7d49edab322feb21e5e805"/>
   </folder>
   <folder name="Views" id="id-d8c415babe50448aa3963d11ca1c98a7" type="diagrams">
     <element xsi:type="archimate:ArchimateDiagramModel" name="BusinessLayer" id="id-575925ab5f70471cac49de39082ca0d7" viewpoint="business_process_cooperation">
@@ -354,11 +356,15 @@ This will be a subprocess with multi instance parallel process.</documentation>
         </child>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-897229ed07454a6aacfc1829eec4f332" targetConnections="id-167affeb7e214789b0c0a05d74508635" archimateElement="id-f4078d0a2a8b4cf8888f14ac4feb32b1">
-        <bounds x="660" y="475" width="181" height="115"/>
+        <bounds x="660" y="475" width="373" height="115"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-e6d82dbf805e4231af0eaa8b665d5fc8" source="id-897229ed07454a6aacfc1829eec4f332" target="id-4f58f82a045d4237b8bc149f48258ee6" archimateRelationship="id-bee5c80c819940c49a09fe56c6d277fd"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-13385014ce0444d58b07210617e1e36c" source="id-897229ed07454a6aacfc1829eec4f332" target="id-5965514aae4841bf8ed8444a086f9408" archimateRelationship="id-ee5786e6b0c340568a3965d577af39ad"/>
+        <sourceConnection xsi:type="archimate:Connection" id="id-1fdaef297bb74c439863c810fba09ba2" source="id-897229ed07454a6aacfc1829eec4f332" target="id-a174a833111e4c60ba5a01e46b23f24f" archimateRelationship="id-0b926ae426fe426e9e9308ef05e72bef"/>
         <child xsi:type="archimate:DiagramObject" id="id-4f58f82a045d4237b8bc149f48258ee6" targetConnections="id-e6d82dbf805e4231af0eaa8b665d5fc8" archimateElement="id-e4f20a20f7a840f1ac6050f3eea8dae3">
           <bounds x="36" y="48" width="120" height="55"/>
+        </child>
+        <child xsi:type="archimate:DiagramObject" id="id-a174a833111e4c60ba5a01e46b23f24f" targetConnections="id-1fdaef297bb74c439863c810fba09ba2" archimateElement="id-5b8a49054b7d49edab322feb21e5e805">
+          <bounds x="216" y="48" width="120" height="55"/>
         </child>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-a6c49d392851499ca5f846f01d97b6b1" targetConnections="id-eb802fd10c21471997530e72306f33b8" archimateElement="id-d3c5799b50a84541ba0f39f0d3d332c1">
@@ -382,7 +388,7 @@ This will be a subprocess with multi instance parallel process.</documentation>
         <bounds x="408" y="177" width="120" height="55"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-54cdfa9a2f24413aae64374875076eb7" targetConnections="id-9b0c85d552fa4500a17fb73c6a1304d2" archimateElement="id-81a88ac8f5454333a35b5c24b75b04fa">
-        <bounds x="132" y="309" width="120" height="55"/>
+        <bounds x="120" y="309" width="132" height="55"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-984034416c714ef797f27c027b7aff88" source="id-54cdfa9a2f24413aae64374875076eb7" target="id-7722136f51e04a379a3f2c0bb01d5423" archimateRelationship="id-e75323a406fa45179f84f4d6ebe5ded0"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-5ed51e166977400bb07b845798df661c" source="id-54cdfa9a2f24413aae64374875076eb7" target="id-a584ffbe42214e8aa10d72bc6af9d873" archimateRelationship="id-4aeabc017ccc4bf5a345df630555c9e6"/>
       </child>
@@ -394,47 +400,33 @@ This will be a subprocess with multi instance parallel process.</documentation>
           <bendpoint startX="-120" startY="204" endX="144" endY="-3"/>
         </sourceConnection>
       </child>
-      <child xsi:type="archimate:DiagramObject" id="id-300fca4f27e24175b0a60ad875e5c026" archimateElement="id-0738b057c7b24341bd3d97bf521bf55c">
-        <bounds x="900" y="472" width="205" height="122"/>
-        <sourceConnection xsi:type="archimate:Connection" id="id-a6bc498d724b4a52a5f5e37022edf64e" source="id-300fca4f27e24175b0a60ad875e5c026" target="id-41207fc8e7eb47028cdcca8258704c09" archimateRelationship="id-1ec552b67e5448938b1d385873a768fa"/>
-      </child>
-      <child xsi:type="archimate:DiagramObject" id="id-416dc22f2951452aa919e716e87083b1" archimateElement="id-b3caf4a37bc6443d9e5380d4c60de339">
-        <bounds x="1140" y="470" width="205" height="120"/>
-        <sourceConnection xsi:type="archimate:Connection" id="id-19b3927f9403418ca553b4148806b70d" source="id-416dc22f2951452aa919e716e87083b1" target="id-a174a833111e4c60ba5a01e46b23f24f" archimateRelationship="id-dad6e24c7ed349b1a29e857a6df31f0e"/>
-      </child>
-      <child xsi:type="archimate:DiagramObject" id="id-41207fc8e7eb47028cdcca8258704c09" targetConnections="id-a6bc498d724b4a52a5f5e37022edf64e" archimateElement="id-4ee8a4ed46454b9382add6d49fe300da">
-        <bounds x="948" y="201" width="120" height="55"/>
-      </child>
-      <child xsi:type="archimate:DiagramObject" id="id-a174a833111e4c60ba5a01e46b23f24f" targetConnections="id-19b3927f9403418ca553b4148806b70d" archimateElement="id-5b8a49054b7d49edab322feb21e5e805">
-        <bounds x="1183" y="201" width="120" height="55"/>
-      </child>
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="BusinessLayer-Order" id="id-7b4dc12e275c4b5fb7ddb40a6a9261eb">
       <child xsi:type="archimate:DiagramObject" id="id-56bb5c36e9ba48499a48408ab1132420" archimateElement="id-0b2c2a7a208a4f409587b91a6304780e">
-        <bounds x="94" y="120" width="650" height="217"/>
+        <bounds x="420" y="180" width="662" height="217"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-d2c1a4b2b70f43018b6fbdcd01ae8c5d" source="id-56bb5c36e9ba48499a48408ab1132420" target="id-dfb1a387570046e6b62d31a22d31de87" archimateRelationship="id-638c0de5af634b58b7b6b8eb2d864b45"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-c1ff2524d0ac47cb870e402228c16858" source="id-56bb5c36e9ba48499a48408ab1132420" target="id-07e45ced1ece45f6bfad8056be56b35b" archimateRelationship="id-25519e6197b14587b524b065fd1ca5f6"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-432a041838e046cba48ca92ce7f0ce09" source="id-56bb5c36e9ba48499a48408ab1132420" target="id-7dcb930fe77b486aa53c30c8bee09b4e" archimateRelationship="id-bcb972db340a4ec8aa6f475a2c16db6e"/>
         <sourceConnection xsi:type="archimate:Connection" id="id-187ad3d0ac0f4d38906b30490c9e68b7" source="id-56bb5c36e9ba48499a48408ab1132420" target="id-8ff2e49e1d454a60b1f996beb6d1c762" archimateRelationship="id-7eae4291453845b99058f704b0f9b0b7"/>
         <child xsi:type="archimate:DiagramObject" id="id-7dcb930fe77b486aa53c30c8bee09b4e" targetConnections="id-432a041838e046cba48ca92ce7f0ce09" archimateElement="id-adffaa1ef3274256b6728067d7ca8bc9">
-          <bounds x="12" y="84" width="120" height="55"/>
+          <bounds x="24" y="84" width="120" height="55"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-d0c89dc787dc4dff87083b9c5397ce0d" source="id-7dcb930fe77b486aa53c30c8bee09b4e" target="id-07e45ced1ece45f6bfad8056be56b35b" archimateRelationship="id-e61bfb49f1704b79868f6d2780f79d1d"/>
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-dfb1a387570046e6b62d31a22d31de87" targetConnections="id-d2c1a4b2b70f43018b6fbdcd01ae8c5d id-bbedfdf6894347fc9ed227bc04502e49" archimateElement="id-212836588b274c92bbdc06c0116a6008">
-          <bounds x="324" y="83" width="120" height="55"/>
+          <bounds x="336" y="83" width="120" height="55"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-dd1d0f9550fc4547b671d2362c54269c" source="id-dfb1a387570046e6b62d31a22d31de87" target="id-8ff2e49e1d454a60b1f996beb6d1c762" archimateRelationship="id-0cd5aa3b50ff431eb61afa6c594fbdfc"/>
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-8ff2e49e1d454a60b1f996beb6d1c762" targetConnections="id-dd1d0f9550fc4547b671d2362c54269c id-187ad3d0ac0f4d38906b30490c9e68b7" archimateElement="id-52682d1f1d164384a9a76ea91c8a41f0">
-          <bounds x="492" y="84" width="132" height="54"/>
+          <bounds x="504" y="84" width="132" height="54"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-b1c6f12ae05e411f9baff6b196fe207d" source="id-8ff2e49e1d454a60b1f996beb6d1c762" target="id-72897f585d2d4190aaef77275bd5f5c1" archimateRelationship="id-56a4a51898f6497fa81754acd0c5f8e1"/>
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-07e45ced1ece45f6bfad8056be56b35b" targetConnections="id-c1ff2524d0ac47cb870e402228c16858 id-d0c89dc787dc4dff87083b9c5397ce0d" archimateElement="id-cf086e6e67d744859d438487344bbf97">
-          <bounds x="168" y="84" width="120" height="55"/>
+          <bounds x="180" y="84" width="120" height="55"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-bbedfdf6894347fc9ed227bc04502e49" source="id-07e45ced1ece45f6bfad8056be56b35b" target="id-dfb1a387570046e6b62d31a22d31de87" archimateRelationship="id-ed7b1ececada408b88192596df6fd9e4"/>
         </child>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-72897f585d2d4190aaef77275bd5f5c1" targetConnections="id-b1c6f12ae05e411f9baff6b196fe207d" archimateElement="id-4bf665a1f0dc46949f679ba17cf9cc28">
-        <bounds x="588" y="396" width="120" height="55"/>
+        <bounds x="936" y="456" width="120" height="55"/>
       </child>
     </element>
     <element xsi:type="archimate:ArchimateDiagramModel" name="BusinessLayer- Preparation" id="id-e8978467f0c343a3b566ffe8c6adee6d">
@@ -454,14 +446,10 @@ This will be a subprocess with multi instance parallel process.</documentation>
         </child>
         <child xsi:type="archimate:DiagramObject" id="id-cecebb5ef22e49ad93a677338ef7764f" targetConnections="id-fe1a4a5b304e4ec6a932017e6916c010 id-ef442f37fb734c6a8782e2d1a728f0c5" archimateElement="id-94417559109e439cbbf6616302b32938">
           <bounds x="480" y="73" width="133" height="61"/>
-          <sourceConnection xsi:type="archimate:Connection" id="id-c7218e95bd1546a1aa74a5e8ffb6fb2b" source="id-cecebb5ef22e49ad93a677338ef7764f" target="id-9b6b3faa098640ffaf6c4496d1a7ffb7" archimateRelationship="id-d78b18dc8423488788f08b552efb8eef"/>
         </child>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-b82d99e73215484da10c2537ba49f295" targetConnections="id-8c9f93f9e08d43338314f15a67059ade" archimateElement="id-4bf665a1f0dc46949f679ba17cf9cc28">
         <bounds x="348" y="468" width="120" height="55"/>
-      </child>
-      <child xsi:type="archimate:DiagramObject" id="id-9b6b3faa098640ffaf6c4496d1a7ffb7" targetConnections="id-c7218e95bd1546a1aa74a5e8ffb6fb2b" archimateElement="id-928d71b22d5a4c7690af7fc947554f2e">
-        <bounds x="804" y="465" width="121" height="61"/>
       </child>
     </element>
   </folder>
