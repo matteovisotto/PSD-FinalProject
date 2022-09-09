@@ -43,7 +43,7 @@ This will be a subprocess with multi instance parallel process.</documentation>
     <element xsi:type="archimate:ApplicationService" name="Filtering Service" id="id-4b2c3942da4349f4ac90836071037e63"/>
     <element xsi:type="archimate:ApplicationInterface" name="WebApp" id="id-81a88ac8f5454333a35b5c24b75b04fa"/>
     <element xsi:type="archimate:ApplicationInterface" name="CRM HTTP REST APIs " id="id-9bb30f3677cb43c483448209cc9eb69b"/>
-    <element xsi:type="archimate:ApplicationFunction" name="Material Management" id="id-5b8a49054b7d49edab322feb21e5e805"/>
+    <element xsi:type="archimate:ApplicationFunction" name="Inventory Management" id="id-5b8a49054b7d49edab322feb21e5e805"/>
   </folder>
   <folder name="Technology &amp; Physical" id="id-26a265bebc3443b990f418b440c80e8b" type="technology"/>
   <folder name="Motivation" id="id-bd07bc2b3f304d8aaa2e943af9a52fb9" type="motivation"/>
@@ -99,6 +99,7 @@ This will be a subprocess with multi instance parallel process.</documentation>
     <element xsi:type="archimate:CompositionRelationship" id="id-aa540dc7308349ba8fa28813daf5bee3" source="id-f355b941cea74d0b9d8fc18d0ed8b2a3" target="id-2744bd41cfbf49d1b11f5d2355bc17b2"/>
     <element xsi:type="archimate:TriggeringRelationship" id="id-0cc5d9c0a1054359ac1196d881ffc343" source="id-0b2c2a7a208a4f409587b91a6304780e" target="id-2744bd41cfbf49d1b11f5d2355bc17b2"/>
     <element xsi:type="archimate:AssignmentRelationship" id="id-0b926ae426fe426e9e9308ef05e72bef" source="id-f4078d0a2a8b4cf8888f14ac4feb32b1" target="id-5b8a49054b7d49edab322feb21e5e805"/>
+    <element xsi:type="archimate:ServingRelationship" id="id-ff2a9e9c80314772ac0f4080eb93fd04" source="id-b9714c076afd45d290a7da63fe92af41" target="id-fc122de6c6d64387b288740fbdeee2e2"/>
   </folder>
   <folder name="Views" id="id-d8c415babe50448aa3963d11ca1c98a7" type="diagrams">
     <element xsi:type="archimate:ArchimateDiagramModel" name="BusinessLayer" id="id-575925ab5f70471cac49de39082ca0d7" viewpoint="business_process_cooperation">
@@ -209,6 +210,12 @@ This will be a subprocess with multi instance parallel process.</documentation>
           <bendpoint startX="-16" startY="-146" endX="-425" endY="130"/>
           <bendpoint startX="392" startY="-146" endX="-17" endY="130"/>
         </sourceConnection>
+        <sourceConnection xsi:type="archimate:Connection" id="id-f613b917c32440c2a75e68cb1879cde4" source="id-186634cbe0914e8d983a14da9eafa922" target="id-bf22fe6cc8ea4b449a4ac2c2e558296f" archimateRelationship="id-ff2a9e9c80314772ac0f4080eb93fd04">
+          <bendpoint startX="32" startY="-99" endX="-588" endY="176"/>
+          <bendpoint startX="416" startY="-99" endX="-204" endY="176"/>
+          <bendpoint startX="416" startY="-159" endX="-204" endY="116"/>
+          <bendpoint startX="584" startY="-159" endX="-36" endY="116"/>
+        </sourceConnection>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-920e3a085dd64040b39c02a3ba53045b" targetConnections="id-462b3a5580234d8cbece4a3e054d67ae id-a2260350e88142d7a725f4cbd263c7fe" archimateElement="id-de6fbf9c37e448b4a22a4fcf738ea445">
         <bounds x="526" y="780" width="120" height="55"/>
@@ -285,7 +292,7 @@ This will be a subprocess with multi instance parallel process.</documentation>
           <sourceConnection xsi:type="archimate:Connection" id="id-51feac124f0e48feb39b64aaa3135903" source="id-cce8e0cdac514483a842ec2ebe726aad" target="id-bf22fe6cc8ea4b449a4ac2c2e558296f" archimateRelationship="id-c626383cef8f4af5bde1e549c1be6560"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-b9a654f1ef6a4b929e6d72d5f9581ba7" source="id-cce8e0cdac514483a842ec2ebe726aad" target="id-2cbb477bb7364315b030b379bd4c4d32" archimateRelationship="id-38901f6bf88f44f2ad894f30ca8905b1"/>
           <sourceConnection xsi:type="archimate:Connection" id="id-8fc08ff2d7914c72ac74bbbf5371e961" source="id-cce8e0cdac514483a842ec2ebe726aad" target="id-450f7227406d4e92827ce7030126d00e" archimateRelationship="id-7fb485bcec574935bb3bc038d064fff9"/>
-          <child xsi:type="archimate:DiagramObject" id="id-bf22fe6cc8ea4b449a4ac2c2e558296f" targetConnections="id-51feac124f0e48feb39b64aaa3135903" archimateElement="id-fc122de6c6d64387b288740fbdeee2e2">
+          <child xsi:type="archimate:DiagramObject" id="id-bf22fe6cc8ea4b449a4ac2c2e558296f" targetConnections="id-51feac124f0e48feb39b64aaa3135903 id-f613b917c32440c2a75e68cb1879cde4" archimateElement="id-fc122de6c6d64387b288740fbdeee2e2">
             <bounds x="24" y="36" width="120" height="55"/>
             <sourceConnection xsi:type="archimate:Connection" id="id-e790a7136cd4494d9be4b73d79e6c9b5" source="id-bf22fe6cc8ea4b449a4ac2c2e558296f" target="id-637831093bba4ca4bd1ca20351870435" archimateRelationship="id-357cd89c77c845bea5313c07805b6f94">
               <bendpoint startY="188" endX="96" endY="-2"/>

@@ -146,7 +146,7 @@ client.subscribe('filtered-menu-send', async function({ task, taskService }) {
             }
         });
     });
-    const processVariable = new Variables()
+    const processVariable = new Variables();
     processVariable.set("filtered_menu", "");
     await taskService.complete(task, processVariable);
 });
@@ -176,5 +176,15 @@ client.subscribe('order-confirmation', async function({task, taskService}){
 
 client.subscribe('expired-session-send', async function({task, taskService}){
     console.log("Session expired, message sent");
+    await taskService.complete(task);
+});
+
+client.subscribe('get-tomorrow-order', async function({task, taskService}){
+    const processVariable = new Variables();
+    processVariable.set("todayOrders", [])
+    await taskService.complete(task);
+});
+
+client.subscribe('count-portions', async function({task, taskService}){
     await taskService.complete(task);
 });
