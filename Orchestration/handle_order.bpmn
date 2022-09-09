@@ -43,7 +43,7 @@
     <bpmn:sequenceFlow id="Flow_038gw6y" sourceRef="Activity_0z3slwj" targetRef="Event_1ksb2jf" />
     <bpmn:endEvent id="Event_1ksb2jf" name="Notify completion">
       <bpmn:incoming>Flow_038gw6y</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0hbwbec" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0hbwbec" camunda:type="external" camunda:topic="notify-completion-preparation" />
     </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">

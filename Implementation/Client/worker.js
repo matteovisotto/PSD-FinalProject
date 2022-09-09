@@ -188,3 +188,8 @@ client.subscribe('get-tomorrow-order', async function({task, taskService}){
 client.subscribe('count-portions', async function({task, taskService}){
     await taskService.complete(task);
 });
+
+client.subscribe('notify-completion-preparation', async function({task, taskService}){
+    console.log("Notify completion preparation for today");
+    await taskService.complete(task);
+});
