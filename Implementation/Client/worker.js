@@ -4,6 +4,7 @@ const mqtt = require('mqtt');
 const fs = require('fs');
 // create a Client instance with custom configuration
 const client = new Client(config);
+var temp = "";
 
 var RESTClient = require("node-rest-client").Client;
 var restclient = new RESTClient();
@@ -147,6 +148,7 @@ client.subscribe('filtered-menu-send', async function({ task, taskService }) {
         });
     });
     const processVariable = new Variables();
+    temp = task.variables.get('filtered_menu');
     processVariable.set("filtered_menu", "");
     await taskService.complete(task, processVariable);
 });
@@ -160,7 +162,7 @@ client.subscribe('invalid-order-send', async function({task, taskService}){
         reconnectPeriod: 1000,
     });
     client.on('connect', () => {
-        client.publish('camunda/order/request', JSON.stringify(task.variables.get('filtered_menu')), { qos: 0, retain: false }, (error) => {
+        client.publish('camunda/order/request', JSON.stringify(temp), { qos: 0, retain: false }, (error) => {
             if (error) {
                 console.error(error)
             }
