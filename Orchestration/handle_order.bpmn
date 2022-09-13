@@ -15,9 +15,11 @@
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_0crxndv</bpmn:incoming>
       <bpmn:outgoing>Flow_0k6jd6s</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ukul3t">
-        <bpmn:targetRef>DataStoreReference_0g9aarq</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
+      <bpmn:property id="Property_1e84tw3" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0qql80g">
+        <bpmn:sourceRef>DataStoreReference_0g9aarq</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1e84tw3</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
     <bpmn:dataStoreReference id="DataStoreReference_0g9aarq" />
     <bpmn:sequenceFlow id="Flow_0k6jd6s" sourceRef="Activity_0ce6u48" targetRef="Activity_0eixbpf" />
@@ -109,9 +111,9 @@
           <dc:Bounds x="948" y="142" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0ukul3t_di" bpmnElement="DataOutputAssociation_0ukul3t">
-        <di:waypoint x="320" y="157" />
+      <bpmndi:BPMNEdge id="DataInputAssociation_0qql80g_di" bpmnElement="DataInputAssociation_0qql80g">
         <di:waypoint x="320" y="195" />
+        <di:waypoint x="320" y="157" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -33,11 +33,9 @@
     <bpmn:scriptTask id="saveOrderActivity" name="Save order">
       <bpmn:incoming>Flow_0fq9ocj</bpmn:incoming>
       <bpmn:outgoing>Flow_1djjcue</bpmn:outgoing>
-      <bpmn:property id="Property_1ip7e4u" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_09mc6mm">
-        <bpmn:sourceRef>DataStoreReference_0s60yw0</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1ip7e4u</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1wxlxwo">
+        <bpmn:targetRef>DataStoreReference_0s60yw0</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
       <bpmn:script>console.log("");</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:dataStoreReference id="DataStoreReference_0s60yw0" />
@@ -376,10 +374,6 @@
       <bpmndi:BPMNShape id="Participant_0krr8c4_di" bpmnElement="Participant_0krr8c4" isHorizontal="true">
         <dc:Bounds x="160" y="800" width="1860" height="150" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataInputAssociation_09mc6mm_di" bpmnElement="DataInputAssociation_09mc6mm">
-        <di:waypoint x="1670" y="385" />
-        <di:waypoint x="1670" y="350" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1a6ehal_di" bpmnElement="DataInputAssociation_1a6ehal">
         <di:waypoint x="570" y="455" />
         <di:waypoint x="570" y="430" />
@@ -430,6 +424,10 @@
       <bpmndi:BPMNEdge id="Flow_1g1k58j_di" bpmnElement="Flow_1g1k58j">
         <di:waypoint x="1240" y="160" />
         <di:waypoint x="1240" y="292" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1wxlxwo_di" bpmnElement="DataOutputAssociation_1wxlxwo">
+        <di:waypoint x="1670" y="350" />
+        <di:waypoint x="1670" y="385" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
